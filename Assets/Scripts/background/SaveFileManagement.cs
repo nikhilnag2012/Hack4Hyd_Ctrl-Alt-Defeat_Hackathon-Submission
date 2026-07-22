@@ -8,8 +8,10 @@ public class SaveFileManagement : MonoBehaviour
     {
         string mapsPath = Path.Combine(Application.persistentDataPath, "Chapters");
         string mathsPath = Path.Combine(Application.persistentDataPath, "Chapters", "Maths");
+        string SavePath = Path.Combine(Application.persistentDataPath, "Saves");
         Directory.CreateDirectory(mapsPath);
         Directory.CreateDirectory(mathsPath);
+        Directory.CreateDirectory(SavePath);
     }
 
     // Update is called once per frame
@@ -17,4 +19,6 @@ public class SaveFileManagement : MonoBehaviour
     {
         
     }
+
+
 }

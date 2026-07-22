@@ -208,6 +208,8 @@ GameObject:
   m_Component:
   - component: {fileID: 452698020}
   - component: {fileID: 452698019}
+  - component: {fileID: 452698021}
+  - component: {fileID: 452698022}
   m_Layer: 0
   m_Name: runBackgroundProcesses
   m_TagString: Untagged
@@ -242,6 +244,34 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &452698021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 452698018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdac17ac74d5e6e44b4c5a3e5e27f069, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ReduceHealth
+  hm: {fileID: 547422459}
+  slm: {fileID: 452698022}
+--- !u!114 &452698022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 452698018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6df1c32a79c750f4cb8b392348face3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SaveLoadManager
+  playerTransform: {fileID: 547422456}
+  healthScript: {fileID: 997023983}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -392,6 +422,7 @@ GameObject:
   - component: {fileID: 547422454}
   - component: {fileID: 547422457}
   - component: {fileID: 547422458}
+  - component: {fileID: 547422459}
   m_Layer: 0
   m_Name: player replacement
   m_TagString: Untagged
@@ -566,6 +597,20 @@ PolygonCollider2D:
       - {x: 0.4658298, y: -0.41998342}
       - {x: 0.45728794, y: 0.4452518}
   m_UseDelaunayMesh: 1
+--- !u!114 &547422459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 547422453}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58495c1f3d9d36443beb81dfb291d977, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HealthManagement
+  maxHealth: 3
+  healthBarUI: {fileID: 997023983}
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -831,6 +876,7 @@ GameObject:
   - component: {fileID: 997023982}
   - component: {fileID: 997023981}
   - component: {fileID: 997023980}
+  - component: {fileID: 997023983}
   m_Layer: 5
   m_Name: healthBar
   m_TagString: Untagged
@@ -921,6 +967,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 997023978}
   m_CullTransparentMesh: 1
+--- !u!114 &997023983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 997023978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a5497c8e42c16148a6cd12f7407a505, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HealthBarUI
+  heartPrefab: {fileID: 3544252276110207536, guid: 82d04831fe746ff438338fd1bd948031, type: 3}
+  heartContainer: {fileID: 997023979}
+  fullHeartSprite: {fileID: -2413806693520163455, guid: 69ae119f26718d443bedc0f9f92a4989, type: 3}
+  emptyHeartSprite: {fileID: 0}
+  currHealth: 0
 --- !u!1 &1292480159
 GameObject:
   m_ObjectHideFlags: 0
