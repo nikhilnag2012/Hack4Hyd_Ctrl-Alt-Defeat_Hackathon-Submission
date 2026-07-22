@@ -5,7 +5,8 @@ using Newtonsoft.Json;
 public class SaveLoadManager : MonoBehaviour
 {
     [SerializeField] private Transform playerTransform;
-    [SerializeField] private HealthBarUI healthScript; // Drag your health script here
+    [SerializeField] private HealthBarUI healthScript;
+    [SerializeField] private HealthManagement hm;
 
     private string saveFileName = "most recent save.json";
     private string saveFilePath;
@@ -48,26 +49,30 @@ public class SaveLoadManager : MonoBehaviour
             return;
         }
 
-        // Read string and deserialize
-        string jsonString = File.ReadAllText(saveFilePath);
-        SaveData loadedData = JsonConvert.DeserializeObject<SaveData>(jsonString);
+        try {
 
-        // Apply position
-        if (playerTransform != null)
-        {
-            playerTransform.position = loadedData.GetVector2Position();
+            // Read string and deserialize
+            string jsonString = File.ReadAllText(saveFilePath);
+            SaveData loadedData = JsonConvert.DeserializeObject<SaveData>(jsonString);
+
+            // Apply position
+            if (playerTransform != null)
+            {
+                playerTransform.position = loadedData.GetVector2Position();
+            }
+
+            // Apply health
+            if (healthScript != null)
+            {
+
+
+                // Call UI refresh function
+                hm.SetHealth(loadedData.health);
+            }
+
+            Debug.Log($"Game Loaded! Restored Health: {healthScript.currHealth}");
         }
-
-        // Apply health
-        if (healthScript != null)
-        {
-            healthScript.currHealth = loadedData.health;
-
-            // Optional: Call your UI refresh function if you have one!
-            // healthScript.UpdateUI(); 
-        }
-
-        Debug.Log($"Game Loaded! Restored Health: {healthScript.currHealth}");
+        catch(System.Exception e) { Debug.LogError(e.ToString());  return; }
     }
 }
 

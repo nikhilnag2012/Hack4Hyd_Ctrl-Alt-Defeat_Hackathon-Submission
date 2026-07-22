@@ -42,4 +42,13 @@ public class HealthManagement : MonoBehaviour
             healthBarUI.UpdateHearts(currentHealth);
         }
     }
+
+    public void SetHealth(int health)
+    {
+        if(health <= maxHealth)
+            currentHealth = health;
+
+        if (healthBarUI != null) 
+            healthBarUI.UpdateHearts(currentHealth);
+    }
 }
