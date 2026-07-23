@@ -1,16 +1,27 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class enemyScript : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    [Header("Json Info")]
+    public string message;
+    public string type;
+    public string puzzle;
 
-    // Update is called once per frame
-    void Update()
+    [Header("Dialogue Card")]
+    public GameObject dialogueCard;
+    public Text dialogueText;
+    public Button dialoguebutton;
+
+    [Header("Player")]
+    public PlayerMovement player;
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        
+        if (collision != null && collision.gameObject.name == "player") {
+            player.enabled = false;
+            dialogueCard.SetActive(true);
+            dialogueText.text = message;
+            dialoguebutton.onClick.AddListener(() => { Debug.Log("It works!"); });
+        }
     }
 }

@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using System.IO;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 
 public class LoadTiles : MonoBehaviour
 {
@@ -69,6 +70,7 @@ public class LevelFileFormat
     public d2Coordinates start { get; set; }
     public notesField[] notes { get; set; }
     public challengeField[] challenges { get; set; }
+    public Dictionary<string, puzzleFormat> puzzles { get; set; }
 }
 
 [Serializable]
@@ -90,4 +92,12 @@ public class notesField
 public class d2Coordinates {
     public double x { get; set; }
     public double y { get; set; }
+}
+
+[Serializable]
+public class puzzleFormat
+{
+    public string question { get; set; }
+    public double answer { get; set; }
+    public string type { get; set; }
 }
