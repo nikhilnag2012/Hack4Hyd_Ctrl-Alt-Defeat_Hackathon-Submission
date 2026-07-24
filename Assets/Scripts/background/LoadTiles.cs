@@ -28,26 +28,55 @@ public class LoadTiles : MonoBehaviour
             return;
         }
 
+        if (tilemap == null)
+        {
+            Debug.LogError("BuildFromArray: tilemap is not assigned.");
+            return;
+        }
+
         if (map == null || map.Length < height)
         {
             Debug.LogError($"BuildFromArray: map has {map?.Length ?? 0} rows but height is {height}.");
             return;
         }
 
+        // Clear any tiles from a previous build so stale tiles don't linger.
+        tilemap.ClearAllTiles();
+
+        var positions = new List<Vector3Int>();
+
         for (int y = 0; y < height; y++)
         {
+            if (map[y] == null)
+            {
+                Debug.LogWarning($"BuildFromArray: row {y} is null, skipping.");
+                continue;
+            }
+
+            if (map[y].Length < width)
+            {
+                Debug.LogWarning($"BuildFromArray: row {y} has {map[y].Length} cells but width is {width}.");
+            }
+
             int rowWidth = Mathf.Min(width, map[y].Length);
 
             for (int x = 0; x < rowWidth; x++)
             {
                 if (map[y][x] == 1)
                 {
-                    Vector2Int cell2D = new Vector2Int(x, y);
-                    Vector3Int cellPos = new Vector3Int(cell2D.x, cell2D.y, 0);
-                    tilemap.SetTile(cellPos, tile);
+                    positions.Add(new Vector3Int(x, -y, 0));
                 }
             }
         }
+
+        if (positions.Count == 0)
+            return;
+
+        var tiles = new TileBase[positions.Count];
+        for (int i = 0; i < tiles.Length; i++)
+            tiles[i] = tile;
+
+        tilemap.SetTiles(positions.ToArray(), tiles);
     }
 
     public void SpawnEnemies(GameObject prefab, Vector2 pos, string puzzle, string type, string message) {
@@ -73,6 +102,10 @@ public class LoadTiles : MonoBehaviour
                 Debug.Log(n);
             }
             BuildFromArray(levelLayout.tiles, levelLayout.width, levelLayout.height);
+            foreach (challengeField i in levelLayout.challenges)
+            {
+                SpawnEnemies(enemyPrefab, new Vector2((float)i.pos.x, (float)i.pos.y), i.puzzle, i.type, i.message);
+            }
         }
         catch(Exception e)
         {
@@ -101,6 +134,7 @@ public class challengeField
     public d2Coordinates pos { get; set; }
     public string puzzle { get; set; }
     public string type { get; set; }
+    public string message { get; set; }
 }
 
 [Serializable]
