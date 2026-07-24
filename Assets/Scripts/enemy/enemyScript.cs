@@ -1,5 +1,7 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Newtonsoft.Json;
 
 public class enemyScript : MonoBehaviour
 {
@@ -21,7 +23,10 @@ public class enemyScript : MonoBehaviour
             player.enabled = false;
             dialogueCard.SetActive(true);
             dialogueText.text = message;
-            dialoguebutton.onClick.AddListener(() => { Debug.Log("It works!"); });
+            dialoguebutton.onClick.AddListener(() => { 
+                ActivePuzzle.puzzle = puzzle;
+                SceneManager.LoadScene("NumericalQuestion");
+            });
         }
     }
 }
