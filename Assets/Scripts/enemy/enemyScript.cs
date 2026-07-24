@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using Newtonsoft.Json;
 
 public class enemyScript : MonoBehaviour
 {
@@ -25,7 +24,16 @@ public class enemyScript : MonoBehaviour
             dialogueText.text = message;
             dialoguebutton.onClick.AddListener(() => { 
                 ActivePuzzle.puzzle = puzzle;
-                SceneManager.LoadScene("NumericalQuestion");
+                if (CompleteInfo.level.puzzles[puzzle].type == "Numerical")
+                {
+                    SceneManager.LoadScene("NumericalQuestion");
+
+                }
+                else if (CompleteInfo.level.puzzles[puzzle].type == "Fraction")
+                {
+                    //TODO: Change to fraction scene
+
+                }
             });
         }
     }

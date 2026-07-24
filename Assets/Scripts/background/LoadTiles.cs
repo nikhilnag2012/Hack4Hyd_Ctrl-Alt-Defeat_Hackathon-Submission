@@ -46,6 +46,7 @@ public class LoadTiles : MonoBehaviour
         try
         {
             LevelFileFormat levelLayout = JsonConvert.DeserializeObject<LevelFileFormat>(jsonText);
+            CompleteInfo.level = levelLayout;
             foreach(int n in levelLayout.tiles[0])
             {
                 Debug.Log(n);
