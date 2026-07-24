@@ -4,11 +4,21 @@ using UnityEngine.Tilemaps;
 using System.IO;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class LoadTiles : MonoBehaviour
 {
     public Tilemap tilemap;
     public TileBase tile; // the tile asset to place
+    public GameObject enemyPrefab; //The enemy prefab to spawn
+
+    [Header("Dialogue Card")]
+    public GameObject dialogueCard;
+    public Text dialogueText;
+    public Button dialoguebutton;
+
+    [Header("Player")]
+    public PlayerMovement player;
 
     public void BuildFromArray(int[][] map, int width, int height)
     {
@@ -38,6 +48,17 @@ public class LoadTiles : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void SpawnEnemies(GameObject prefab, Vector2 pos, string puzzle, string type, string message) {
+        GameObject newEnemy = Instantiate(prefab, pos, Quaternion.identity);
+        newEnemy.GetComponent<enemyScript>().type = type;
+        newEnemy.GetComponent<enemyScript>().puzzle = puzzle;
+        newEnemy.GetComponent<enemyScript>().message = message;
+        newEnemy.GetComponent<enemyScript>().dialogueCard = dialogueCard;
+        newEnemy.GetComponent<enemyScript>().dialogueText = dialogueText;
+        newEnemy.GetComponent<enemyScript>().dialoguebutton = dialoguebutton;
+        newEnemy.GetComponent<enemyScript>().player = player;
     }
 
     public void GetJson(string Filepath)
